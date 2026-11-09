@@ -1,0 +1,646 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Berkas Ajar Guru</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: a sticky rail listing the seven files in working order, one wide workspace, and every file can be viewed as a white "paper" document that copies into Word. */
+:root{
+  --bg:#EDF1EF; --surface:#FFFFFF; --surface2:#F4F7F5; --fg:#16211E; --muted:#576863; --line:#D3DCD8;
+  --accent:#0E6B5A; --accent-fg:#FFFFFF; --accent-soft:#DCEFE9;
+  --warn:#8F4D0A; --warn-soft:#FBEBD6; --bad:#B3261E; --bad-soft:#FBE3E0;
+  --paper:#FFFFFF; --paperfg:#14181A;
+  --f-display:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-doc:"Times New Roman",Tinos,Times,serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1715; --surface:#172320; --surface2:#1C2B27; --fg:#E3EDE9; --muted:#9DB0A9; --line:#2C3D38;
+    --accent:#4FC9AB; --accent-fg:#06211B; --accent-soft:#19352E;
+    --warn:#E8A04D; --warn-soft:#3A2A14; --bad:#F08A82; --bad-soft:#3E1D1A; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1715; --surface:#172320; --surface2:#1C2B27; --fg:#E3EDE9; --muted:#9DB0A9; --line:#2C3D38;
+  --accent:#4FC9AB; --accent-fg:#06211B; --accent-soft:#19352E;
+  --warn:#E8A04D; --warn-soft:#3A2A14; --bad:#F08A82; --bad-soft:#3E1D1A; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:14px;line-height:1.5;
+  padding-block:20px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+button{font-family:inherit}
+h1,h2,h3,h4{margin:0}
+.shell{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:236px minmax(0,1fr);gap:32px;align-items:start}
+.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);display:flex;flex-direction:column;gap:18px;min-width:0}
+.brand h1{font:700 22px/1.1 var(--f-display);letter-spacing:-.015em}
+.brand p{margin:5px 0 0;color:var(--muted);font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:2px}
+.navbtn{display:flex;align-items:center;gap:10px;text-align:left;background:none;border:0;padding:9px 10px;border-radius:8px;color:var(--fg);font:500 14px var(--f-body);cursor:pointer}
+.navbtn:hover{background:var(--surface2)}
+.navbtn[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:600}
+.step{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font:600 11px var(--f-body);flex:none;font-variant-numeric:tabular-nums}
+.navbtn[data-s="1"] .step{border-color:var(--accent);color:var(--accent)}
+.navbtn[data-s="2"] .step{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.saved{font-size:12px;color:var(--muted);margin:0}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.pt{font:700 30px/1.12 var(--f-display);letter-spacing:-.02em;text-wrap:balance}
+.lead{color:var(--muted);margin:6px 0 0;max-width:68ch}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:none;color:var(--fg);padding:7px 14px;font:500 13px var(--f-body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg)}
+.btn{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:7px;padding:8px 14px;font:500 13px var(--f-body);cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.btn.pri{background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.btn.ghost{background:none}
+.btn.danger{color:var(--bad)}
+.btn.armed{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+.in{width:100%;min-width:0;font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:7px 9px}
+textarea.in{resize:vertical;line-height:1.45}
+.in:focus-visible,.btn:focus-visible,.navbtn:focus-visible,.chip:focus-visible,.pcb:focus-visible,.seg button:focus-visible,.prow:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+label.f,div.f{display:flex;flex-direction:column;gap:4px;min-width:0}
+.f>span{font-size:12px;color:var(--muted);font-weight:500}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.card h2,.semh h3{font:700 17px/1.2 var(--f-display);letter-spacing:-.01em}
+.hint{color:var(--muted);font-size:12.5px;margin:0}
+.sp{flex:1}
+.notice{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:12px 16px}
+.notice p{margin:0;max-width:70ch}
+.nb{display:flex;gap:8px;flex-wrap:wrap}
+.grid2{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:18px;align-items:start}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.pill{font:600 11px var(--f-body);padding:2px 9px;border-radius:99px;white-space:nowrap}
+.pill.s0{background:var(--surface2);color:var(--muted)}
+.pill.s1{background:var(--warn-soft);color:var(--warn)}
+.pill.s2{background:var(--accent-soft);color:var(--accent)}
+.prow{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 2px;cursor:pointer;color:var(--fg);font:inherit}
+.prow:first-of-type{border-top:0}
+.prow b{font-weight:600}.prow small{color:var(--muted);font-size:12.5px}
+.prow .pl{display:flex;flex-direction:column;flex:1;min-width:0}
+.meter{height:10px;background:var(--surface2);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.meter i.over{background:var(--warn)}
+.jph{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;margin-bottom:5px}
+.jpm p{margin:5px 0 0}
+.semb{gap:6px}
+.semh{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+.semsum{margin:0;color:var(--muted);font-size:13px;font-variant-numeric:tabular-nums}
+.mrow{display:flex;flex-direction:column;gap:8px;padding:12px 0;border-top:1px solid var(--line)}
+.mtop{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end}
+.mn{flex:1 1 150px}.mw{flex:0 0 100px}
+.mres{font-size:12.5px;color:var(--muted);line-height:1.35;font-variant-numeric:tabular-nums;flex:0 0 auto;padding-bottom:6px}
+.mres b{color:var(--fg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:99px;padding:4px 11px;font:500 12.5px var(--f-body);cursor:pointer}
+.chip.off{background:repeating-linear-gradient(135deg,var(--warn-soft),var(--warn-soft) 4px,var(--surface) 4px,var(--surface) 8px);border-color:var(--warn);color:var(--warn);font-weight:600}
+.chip[aria-pressed="true"]:not(.off){background:var(--accent);border-color:var(--accent);color:var(--accent-fg)}
+.pk small{opacity:.75;margin-left:3px}
+.cprow{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr) auto;gap:10px;align-items:start;padding-top:12px;border-top:1px solid var(--line)}
+.cprow:first-of-type{border-top:0;padding-top:0}
+.unit{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface2)}
+.uhead{display:flex;flex-wrap:wrap;gap:10px}
+.un{flex:2 1 220px}.ue{flex:1 1 150px}.us{flex:0 0 90px}
+.tprow{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-start}
+.tpn{font:600 12px var(--f-body);color:var(--muted);width:40px;padding-top:9px;font-variant-numeric:tabular-nums}
+.tprow textarea{flex:1 1 240px}
+.jpf{flex:0 0 76px}
+.tpb{display:flex;gap:4px;padding-top:4px}
+.uact{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.semh2{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;justify-content:space-between}
+.semh2 h3{font:700 17px var(--f-display)}
+.stack{display:flex;flex-direction:column;gap:12px}
+.kkh{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.tptext{margin:0;font-weight:500}
+.lv4{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}
+.intv{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end}
+.intv label{width:92px}
+.grp3{font:700 15px var(--f-display);margin-top:8px;padding-top:12px;border-top:1px solid var(--line)}
+.grp3:first-child{border-top:0;margin-top:0;padding-top:0}
+.pick{display:flex;flex-wrap:wrap;gap:6px}
+.emptyst{border:1px dashed var(--line);border-radius:10px;padding:28px 18px;text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;color:var(--muted)}
+.emptyst p{margin:0;max-width:52ch}
+.empty{color:var(--muted);margin:6px 0}
+.backup textarea{font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;height:90px}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--fg);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;max-width:min(92vw,460px);z-index:20}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* Document paper */
+.docwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--paper)}
+.doc{background:var(--paper);color:var(--paperfg);font:13px/1.45 var(--f-doc);padding:30px 32px;min-width:560px}
+.dt{text-align:center;font:700 15px/1.3 var(--f-doc);text-transform:uppercase;margin:0}
+.dts{text-align:center;margin:2px 0 14px}
+.idt{border-collapse:collapse;margin-bottom:10px;width:100%}
+.idt td{padding:1px 6px 1px 0;vertical-align:top}
+.dh{font:700 13.5px var(--f-doc);margin:14px 0 4px}
+.doc h4{font:700 13px var(--f-doc);margin:10px 0 2px}
+.doc p{margin:0 0 3px}
+.dtbl{border-collapse:collapse;width:100%;margin:6px 0}
+.dtbl th,.dtbl td{border:1px solid #2a2a2a;padding:4px 6px;vertical-align:top;text-align:left}
+.dtbl th{background:#E6ECE8;text-align:center}
+.dtbl .c{text-align:center}
+.dtbl .tot td{font-weight:700;background:#F0F3F1}
+.dtbl .grp td{font-weight:700;background:#DDE8E2}
+.dnote{margin-top:6px;font-size:12px}
+.sign{width:100%;border-collapse:collapse;margin-top:22px}
+.sign td{width:50%;vertical-align:top;padding:0 8px}
+.ans{border-collapse:collapse;margin:2px 0 8px}
+.doc ul{margin:2px 0 4px;padding-left:20px}
+.doc .pc{padding:0;width:26px;min-width:26px;height:26px;text-align:center;font-family:var(--f-body)}
+.pcb{display:block;width:100%;height:26px;border:0;background:transparent;color:#fff;font:700 13px var(--f-body);cursor:pointer;padding:0}
+.doc .pc.on{background:#0E6B5A}
+.doc .pc:not(.off):not(.on):hover{background:#CFE5DE}
+.doc .pc.on:hover{background:#0B5547}
+.doc .pc.off{background:repeating-linear-gradient(135deg,#C9CECC,#C9CECC 3px,#ECEEED 3px,#ECEEED 6px);font-size:10px;color:#555}
+.doc .wk{min-width:26px;padding:2px;font-size:11px}
+.doc .stk{position:sticky;left:0;background:#fff;z-index:1;min-width:180px;max-width:280px}
+.doc th.stk{background:#E6ECE8;z-index:2}
+.lvl-box{display:inline-block;width:11px;height:11px;border:1px solid #333;margin:0 3px 0 10px;vertical-align:-1px}
+
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr);gap:16px}
+  .side{top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5;gap:8px;padding-block:6px 4px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}
+  .brand p,.saved{display:none}
+  .brand h1{font-size:18px}
+  .nav{flex-direction:row;overflow-x:auto;gap:6px;padding-bottom:4px;scrollbar-width:thin}
+  .navbtn{white-space:nowrap;border:1px solid var(--line);background:var(--surface);padding:6px 10px;font-size:13px}
+  .navbtn[aria-current="page"]{border-color:var(--accent)}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .cprow{grid-template-columns:minmax(0,1fr)}
+  .pt{font-size:25px}
+  .doc{padding:20px 18px}
+}
+@media (prefers-reduced-motion:reduce){.meter i,#toast{transition:none}}
+</style>
+
+<div class="shell" id="app">
+  <aside class="side">
+    <div class="brand"><h1>Berkas Ajar Guru</h1><p id="brandsub"></p></div>
+    <nav class="nav" id="nav" aria-label="Berkas"></nav>
+    <p class="saved" id="saved"></p>
+  </aside>
+  <main class="main" id="main"></main>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='berkas-ajar-guru-v1';
+var S=null, NOMAP={};
+var uid=function(){return Math.random().toString(36).slice(2,9)};
+var $=function(s,r){return (r||document).querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var nl=function(s){return String(s||'').split('\n').map(function(l){return l.trim()}).filter(Boolean).map(function(l){return '<p>'+esc(l)+'</p>'}).join('')};
+var dots=function(s){return esc(s)||'…………………'};
+var num=function(v){return Number(v)||0};
+var sum=function(a,f){return a.reduce(function(s,x){return s+f(x)},0)};
+var lc=function(s){return s?s.charAt(0).toLowerCase()+s.slice(1):s};
+var inti=function(s){return String(s||'').trim().replace(/^peserta didik\s+(mampu|dapat)\s+/i,'').replace(/[.\s]+$/,'')};
+var DIM=['Keimanan dan Ketakwaan kepada Tuhan YME','Kewargaan','Penalaran Kritis','Kreativitas','Kolaborasi','Kemandirian','Kesehatan','Komunikasi'];
+var TABS=[{id:'mulai',l:'Beranda'},{id:'waktu',l:'Analisis Waktu',n:1},{id:'cpatp',l:'CP–ATP',n:2},{id:'prota',l:'Program Tahunan',n:3},{id:'promes',l:'Program Semester',n:4},{id:'kktp',l:'KKTP',n:5},{id:'modul',l:'Modul Ajar',n:6},{id:'lkpd',l:'LKPD',n:7}];
+
+/* ---------- data ---------- */
+function mon(sem,nama,n,off,ket){return {id:uid(),sem:sem,nama:nama,n:n,off:off||[],ket:ket||''}}
+function months(o){return [
+  mon(1,'Juli',3,o?[0]:[],o?'Masa Pengenalan Lingkungan Sekolah':''),
+  mon(1,'Agustus',4),mon(1,'September',4),
+  mon(1,'Oktober',4,o?[1]:[],o?'Asesmen sumatif tengah semester':''),
+  mon(1,'November',4),
+  mon(1,'Desember',3,o?[1,2]:[],o?'Asesmen sumatif akhir semester dan libur semester':''),
+  mon(2,'Januari',4,o?[0]:[],o?'Libur semester':''),
+  mon(2,'Februari',4),
+  mon(2,'Maret',4,o?[1,2]:[],o?'Libur hari raya dan cuti bersama':''),
+  mon(2,'April',4),
+  mon(2,'Mei',4,o?[2]:[],o?'Asesmen sumatif tengah semester':''),
+  mon(2,'Juni',3,o?[1,2]:[],o?'Asesmen sumatif akhir tahun dan libur kenaikan kelas':'')
+]}
+function blank(){return {v:1,sample:false,ui:{tab:'mulai',sem:1,doc:{},unit:null,unitL:null},
+  profil:{guru:'',nip:'',sekolah:'',mapel:'',fase:'D',kelas:'',ta:'2026/2027',kepsek:'',nipKs:'',kota:'',tgl:'',jp:4,menit:40,b1:60,b2:75,b3:90},
+  bulan:months(false),cp:[],unit:[],tp:[],promes:{},modul:{},lkpd:{}}}
+function seed(){
+  S=blank();S.sample=true;S.profil.mapel='Matematika';S.profil.kelas='VII';S.bulan=months(true);
+  var E={};
+  [['Bilangan','Peserta didik dapat membaca, menulis, dan membandingkan bilangan bulat, pecahan, serta bilangan berpangkat dan notasi ilmiah, lalu menggunakannya dalam operasi hitung dan masalah sehari-hari.'],
+   ['Aljabar','Peserta didik dapat menyederhanakan bentuk aljabar serta menyelesaikan persamaan dan pertidaksamaan linear satu variabel.'],
+   ['Pengukuran','Peserta didik dapat menghitung luas permukaan dan volume bangun ruang sederhana dalam konteks nyata.'],
+   ['Geometri','Peserta didik dapat menjelaskan hubungan antarsudut serta menentukan keliling dan luas bangun datar.'],
+   ['Analisis Data dan Peluang','Peserta didik dapat menyajikan dan menafsirkan data serta menentukan peluang kejadian sederhana.']
+  ].forEach(function(c){var o={id:uid(),elemen:c[0],teks:c[1]};S.cp.push(o);E[c[0]]=o.id});
+  function U(sem,nama,el,tps){var u={id:uid(),sem:sem,nama:nama,cpId:E[el]};S.unit.push(u);
+    tps.forEach(function(t){S.tp.push({id:uid(),unitId:u.id,teks:'Peserta didik dapat '+t[0],jp:t[1],ind:'',r1:'',r2:'',r3:'',r4:'',teknik:''})});return u}
+  var u1=U(1,'Bilangan Bulat dan Pecahan','Bilangan',[['membaca, menulis, dan membandingkan bilangan bulat serta pecahan',8],['melakukan operasi hitung bilangan bulat dan pecahan dalam masalah sehari-hari',12]]);
+  U(1,'Bilangan Berpangkat dan Notasi Ilmiah','Bilangan',[['menjelaskan sifat-sifat bilangan berpangkat bulat',8],['menuliskan bilangan sangat besar dan sangat kecil dalam notasi ilmiah',8]]);
+  U(1,'Bentuk Aljabar dan Persamaan Linear','Aljabar',[['menyederhanakan bentuk aljabar',12],['menyelesaikan persamaan dan pertidaksamaan linear satu variabel',16]]);
+  U(2,'Sudut dan Bangun Datar','Geometri',[['menjelaskan hubungan antarsudut pada garis sejajar dan garis yang memotongnya',10],['menentukan keliling dan luas segitiga serta segiempat',14]]);
+  U(2,'Bangun Ruang','Pengukuran',[['menghitung luas permukaan dan volume prisma dan tabung',16]]);
+  U(2,'Statistika dan Peluang','Analisis Data dan Peluang',[['menyajikan dan menafsirkan data dengan diagram dan ukuran pemusatan',14],['menentukan peluang kejadian sederhana',10]]);
+  S.tp.slice(0,3).forEach(function(t){fillEmpty(t,genKktp(t))});
+  autoSebar(1);autoSebar(2);
+  S.modul[u1.id]=fillEmpty({},genModul(u1));
+  S.lkpd[u1.id]=fillEmpty({},genLkpd(u1));
+  S.ui.unit=u1.id;S.ui.unitL=u1.id;
+}
+function fillEmpty(o,g){for(var k in g){var v=o[k];if(v==null||v===''||(Array.isArray(v)&&!v.length))o[k]=g[k]}return o}
+
+/* ---------- derived ---------- */
+var bul=function(id){return S.bulan.find(function(b){return b.id===id})};
+var bulanSem=function(s){return S.bulan.filter(function(b){return b.sem===s})};
+var mgEf=function(b){return b.n-b.off.length};
+function orderedTps(s){var out=[];S.unit.filter(function(u){return u.sem===s}).forEach(function(u){S.tp.filter(function(t){return t.unitId===u.id}).forEach(function(t){out.push(t)})});return out}
+var jpTotal=function(s){return sum(orderedTps(s),function(t){return num(t.jp)})};
+var jpAvail=function(s){return sum(bulanSem(s),function(b){return mgEf(b)*num(S.profil.jp)})};
+function slots(s){var r=[];bulanSem(s).forEach(function(b){for(var w=0;w<b.n;w++)if(b.off.indexOf(w)<0)r.push(b.id+':'+w)});return r}
+function autoSebar(s){
+  var sl=slots(s),jp=num(S.profil.jp)||1,cur=0,over=0;
+  orderedTps(s).forEach(function(t){var j=num(t.jp),set=[];
+    if(j>0){var a=Math.floor(cur/jp),b=Math.ceil((cur+j)/jp)-1;for(var i=a;i<=b;i++){if(sl[i])set.push(sl[i]);else over++}}
+    S.promes[t.id]=set;cur+=j});
+  return over}
+function lv(){var p=S.profil,b1=num(p.b1),b2=num(p.b2),b3=num(p.b3);
+  return [['Perlu Bimbingan','0–'+b1],['Cukup',(b1+1)+'–'+b2],['Baik',(b2+1)+'–'+b3],['Sangat Baik',(b3+1)+'–100']]}
+var no=function(id){return NOMAP[id]||'–'};
+function mapNo(){NOMAP={};orderedTps(1).concat(orderedTps(2)).forEach(function(t,i){NOMAP[t.id]=i+1})}
+var unitTps=function(u){return S.tp.filter(function(t){return t.unitId===u.id})};
+var unitJp=function(u){return sum(unitTps(u),function(t){return num(t.jp)})};
+
+function ratioSt(r){return r<=0?0:r>=1?2:1}
+function status(id){
+  var n=S.tp.length,p=S.profil,U=S.unit.length;
+  switch(id){
+    case 'mulai':{var f=['guru','sekolah','mapel','kelas','ta','kepsek'];return ratioSt(f.filter(function(k){return p[k]}).length/f.length)}
+    case 'waktu':return jpAvail(1)>0&&jpAvail(2)>0?2:(jpAvail(1)>0||jpAvail(2)>0?1:0);
+    case 'cpatp':{var r=n?S.tp.filter(function(t){return t.teks&&num(t.jp)>0}).length/n:0;return ratioSt(S.cp.length?r:Math.min(r,.5))}
+    case 'prota':return !n?0:(jpTotal(1)<=jpAvail(1)&&jpTotal(2)<=jpAvail(2)?2:1);
+    case 'promes':return ratioSt(n?S.tp.filter(function(t){return (S.promes[t.id]||[]).length}).length/n:0);
+    case 'kktp':return ratioSt(n?S.tp.filter(function(t){return t.ind&&t.r1&&t.r2&&t.r3&&t.r4}).length/n:0);
+    case 'modul':return ratioSt(U?S.unit.filter(function(u){var m=S.modul[u.id];return m&&m.pendahuluan&&m.memahami}).length/U:0);
+    case 'lkpd':return ratioSt(U?S.unit.filter(function(u){var l=S.lkpd[u.id];return l&&l.tugas}).length/U:0);
+  }return 0}
+function detail(id){
+  var n=S.tp.length,U=S.unit.length;
+  switch(id){
+    case 'mulai':return 'Identitas guru dan sekolah';
+    case 'waktu':return (mgSum(1)+mgSum(2))+' minggu efektif · '+(jpAvail(1)+jpAvail(2))+' JP';
+    case 'cpatp':return U+' unit · '+n+' TP';
+    case 'prota':return (jpTotal(1)+jpTotal(2))+' JP materi';
+    case 'promes':return S.tp.filter(function(t){return (S.promes[t.id]||[]).length}).length+' dari '+n+' TP terjadwal';
+    case 'kktp':return S.tp.filter(function(t){return t.ind&&t.r1&&t.r2&&t.r3&&t.r4}).length+' dari '+n+' TP lengkap';
+    case 'modul':return S.unit.filter(function(u){var m=S.modul[u.id];return m&&m.pendahuluan&&m.memahami}).length+' dari '+U+' unit';
+    case 'lkpd':return S.unit.filter(function(u){var l=S.lkpd[u.id];return l&&l.tugas}).length+' dari '+U+' unit';
+  }return ''}
+var mgSum=function(s){return sum(bulanSem(s),mgEf)};
+var STL=['Belum','Sebagian','Selesai'];
+function calc(key){
+  var q=key.split(':'),k=q[0],a=q[1],p=num(S.profil.jp);
+  switch(k){
+    case 'mgef':{var b=bul(a);return b?String(mgEf(b)):''}
+    case 'jpef':{var b2=bul(a);return b2?String(mgEf(b2)*p):''}
+    case 'semsum':{var s=+a,bs=bulanSem(s),w=sum(bs,function(x){return x.n}),o=sum(bs,function(x){return x.off.length});return w+' minggu · '+o+' tidak efektif · '+(w-o)+' efektif · '+(w-o)*p+' JP'}
+    case 'unitjp':{var u=S.unit.find(function(x){return x.id===a});return u?unitJp(u)+' JP di unit ini':''}
+    case 'semjp':return jpTotal(+a)+' JP materi dari '+jpAvail(+a)+' JP efektif';
+    case 'sisa':{var d=jpAvail(+a)-jpTotal(+a);return d>=0?'Sisa '+d+' JP untuk asesmen, remedial, dan cadangan.':'Kelebihan '+(-d)+' JP. Kurangi materi atau tambah minggu efektif.'}
+    case 'pstat':{var s2=+a,sl=slots(s2).length,used={};orderedTps(s2).forEach(function(t){(S.promes[t.id]||[]).forEach(function(x){used[x]=1})});return Object.keys(used).length+' dari '+sl+' minggu efektif terisi'}
+  }return ''}
+function updateDerived(){
+  document.querySelectorAll('[data-calc]').forEach(function(e){var v=calc(e.dataset.calc);if(e.textContent!==v)e.textContent=v});
+  document.querySelectorAll('[data-meter]').forEach(function(e){var s=+e.dataset.meter,a=jpAvail(s),t=jpTotal(s);e.style.width=(a?Math.min(100,t/a*100):(t?100:0))+'%';e.classList.toggle('over',t>a)});
+  renderNav()}
+function renderNav(){
+  $('#nav').innerHTML=TABS.map(function(t){return '<button class="navbtn" data-act="tab" data-v="'+t.id+'" data-s="'+status(t.id)+'"'+(S.ui.tab===t.id?' aria-current="page"':'')+'><span class="step">'+(t.n||'⌂')+'</span><span>'+t.l+'</span></button>'}).join('');
+  var p=S.profil;$('#brandsub').textContent=[p.mapel,p.fase?'Fase '+p.fase:'',p.kelas?'Kelas '+p.kelas:'',p.ta?'TP '+p.ta:''].filter(Boolean).join(' · ')||'Perangkat ajar Kurikulum Merdeka'}
+
+/* ---------- generators ---------- */
+function genKktp(t){var x=inti(t.teks);return {ind:'Peserta didik dapat '+x+'.',r1:'Belum dapat '+x+'; masih memerlukan bimbingan intensif dari guru.',r2:'Dapat '+x+' sebagian, dengan bantuan guru atau teman.',r3:'Dapat '+x+' secara mandiri dan tepat.',r4:'Dapat '+x+' secara mandiri dan tepat, serta mampu menjelaskan atau menerapkannya pada situasi baru.',teknik:'Observasi, tes tertulis, dan penugasan'}}
+function genModul(u){var nm=u.nama||'materi ini';return {
+  awal:'Peserta didik telah mempelajari konsep dasar yang menjadi prasyarat '+nm+' pada pembelajaran sebelumnya.',
+  dimensi:['Penalaran Kritis','Kolaborasi','Kemandirian'],
+  sarana:'Buku teks, LKPD, papan tulis, alat tulis; proyektor atau gawai bila tersedia.',
+  target:'Peserta didik reguler. Sediakan pendampingan tambahan bagi yang masih kesulitan dan tantangan lanjutan bagi yang cepat memahami.',
+  model:'Pembelajaran berbasis masalah dengan diskusi kelompok kecil dan presentasi hasil.',
+  pemahaman:nm+' dijumpai dalam kehidupan sehari-hari. Dengan memahaminya, peserta didik dapat mengambil keputusan dan menyelesaikan masalah secara tepat.',
+  pemantik:'1. Di mana kamu pernah menjumpai '+lc(nm)+' dalam kehidupan sehari-hari?\n2. Apa yang terjadi jika kita keliru menerapkannya?',
+  pendahuluan:'1. Guru memberi salam, mengecek kehadiran, dan mengajak berdoa.\n2. Guru menyampaikan tujuan pembelajaran dan kaitannya dengan kehidupan sehari-hari.\n3. Guru mengajukan pertanyaan pemantik dan peserta didik menjawab secara singkat.\n4. Guru melakukan asesmen diagnostik singkat untuk mengetahui kesiapan belajar.',
+  memahami:'1. Peserta didik mengamati contoh dan situasi yang disajikan guru.\n2. Peserta didik mendiskusikan konsep kunci dalam kelompok kecil.\n3. Guru membimbing penarikan kesimpulan konsep secara bersama.',
+  mengaplikasi:'1. Peserta didik mengerjakan LKPD secara berkelompok.\n2. Peserta didik menerapkan konsep pada masalah kontekstual.\n3. Perwakilan kelompok mempresentasikan hasil dan menerima tanggapan.',
+  merefleksi:'1. Peserta didik menuliskan bagian yang sudah dan belum dipahami.\n2. Peserta didik memberi umpan balik pada hasil kerja teman.\n3. Guru memberi penguatan dan umpan balik.',
+  penutup:'1. Guru dan peserta didik menyimpulkan pembelajaran.\n2. Guru menyampaikan tugas lanjutan dan rencana pertemuan berikutnya.\n3. Berdoa dan salam penutup.',
+  diagnostik:'Pertanyaan singkat lisan atau tertulis di awal pembelajaran untuk memetakan pengetahuan prasyarat.',
+  formatif:'Observasi saat diskusi, penilaian LKPD, dan umpan balik tertulis. Acuan penilaian mengikuti KKTP pada bagian asesmen di bawah.',
+  sumatif:'Tes tertulis atau penugasan di akhir unit. Acuan penilaian mengikuti KKTP pada bagian asesmen di bawah.',
+  remedial:'Pembelajaran ulang dengan penjelasan yang disederhanakan, tutor sebaya, dan latihan terbimbing bagi peserta didik yang belum mencapai kriteria cukup.',
+  pengayaan:'Soal pemecahan masalah tingkat lanjut atau proyek mini bagi peserta didik yang telah mencapai kriteria sangat baik.',
+  refGuru:'1. Apakah tujuan pembelajaran tercapai?\n2. Bagian mana yang perlu diperbaiki?\n3. Peserta didik mana yang perlu tindak lanjut?',
+  refSiswa:'1. Apa yang paling kamu pahami hari ini?\n2. Bagian mana yang masih membingungkan?\n3. Apa yang akan kamu lakukan agar lebih paham?',
+  pustaka:'Isi dengan judul buku teks utama, penulis, penerbit, dan tahun terbit.'}}
+function genLkpd(u){var nm=u.nama||'materi ini',tps=unitTps(u);return {
+  judul:'LKPD '+nm,
+  petunjuk:'1. Tulis nama kelompok dan anggota pada tempat yang disediakan.\n2. Baca setiap petunjuk dan pertanyaan dengan teliti.\n3. Diskusikan bersama anggota kelompok sebelum menulis jawaban.\n4. Tanyakan kepada guru jika ada hal yang belum jelas.\n5. Kumpulkan LKPD setelah selesai.',
+  tujuan:tps.map(function(t,i){return (i+1)+'. '+t.teks}).join('\n'),
+  alat:'Alat tulis, buku catatan, dan bahan pendukung dari guru.',
+  kegiatan:'1. Amati contoh atau situasi yang diberikan guru.\n2. Diskusikan bersama kelompokmu: apa yang sudah kamu ketahui dan apa yang ingin kamu cari tahu.\n3. Kerjakan tugas di bawah ini.',
+  tugas:tps.map(function(t,i){return 'Tugas '+(i+1)+'. Kerjakan dan tuliskan langkah penyelesaianmu untuk: '+inti(t.teks)+'.'}).join('\n'),
+  baris:3,
+  kesimpulan:'Tuliskan kesimpulan kelompokmu tentang '+lc(nm)+'.',
+  refleksi:'Beri tanda centang sesuai pemahamanmu setelah mengerjakan LKPD ini.'}}
+
+/* ---------- document frame ---------- */
+function idRows(extra){var p=S.profil;
+  return '<table class="idt"><tr><td>Satuan Pendidikan</td><td>: '+dots(p.sekolah)+'</td><td>Fase / Kelas</td><td>: '+dots(p.fase)+' / '+dots(p.kelas)+'</td></tr><tr><td>Mata Pelajaran</td><td>: '+dots(p.mapel)+'</td><td>Tahun Pelajaran</td><td>: '+dots(p.ta)+'</td></tr><tr><td>Nama Guru</td><td>: '+dots(p.guru)+'</td><td>'+(extra?extra[0]:'Alokasi per minggu')+'</td><td>: '+(extra?extra[1]:num(p.jp)+' JP')+'</td></tr></table>'}
+function sign(){var p=S.profil;
+  return '<table class="sign"><tr><td>Mengetahui,<br>Kepala Sekolah<br><br><br><br><b><u>'+dots(p.kepsek)+'</u></b><br>NIP. '+(esc(p.nipKs)||'…………………')+'</td><td>'+(esc(p.kota)||'…………')+', '+(esc(p.tgl)||'…………………')+'<br>Guru Mata Pelajaran<br><br><br><br><b><u>'+dots(p.guru)+'</u></b><br>NIP. '+(esc(p.nip)||'…………………')+'</td></tr></table>'}
+function docFrame(title,body,o){o=o||{};
+  return '<div class="docwrap"><article class="doc" id="doc"><h2 class="dt">'+title+'</h2><p class="dts">'+(o.sub||'Tahun Pelajaran '+dots(S.profil.ta))+'</p>'+idRows(o.extra)+body+(o.nosign?'':sign())+'</article></div>'}
+function head(title,lead,tab,o){o=o||{};var d=!!S.ui.doc[tab];
+  return '<div><h1 class="pt">'+title+'</h1><p class="lead">'+lead+'</p></div><div class="bar">'+
+    (o.noToggle?'':'<div class="seg" role="group" aria-label="Tampilan"><button data-act="view" data-v="edit" aria-pressed="'+!d+'">Isi data</button><button data-act="view" data-v="doc" aria-pressed="'+d+'">Dokumen</button></div>')+
+    ((d||o.noToggle)?'<button class="btn pri" data-act="copy">Salin dokumen</button><span class="hint">Tempel langsung ke Word atau Google Docs.</span>':'')+(o.extra||'')+'</div>'}
+function empty(msg,tab,label){return '<div class="emptyst"><p>'+msg+'</p><button class="btn pri" data-act="tab" data-v="'+tab+'">'+label+'</button></div>'}
+function notice(){return S.sample?'<div class="notice"><p><b>Data contoh.</b> Matematika Fase D sudah terisi agar alur antarberkas terlihat. Ringkasan CP di sini hanya contoh; ganti dengan CP resmi mata pelajaran Anda.</p><div class="nb"><button class="btn sm" data-act="keepsample">Pakai dan ubah data ini</button><button class="btn sm danger" data-act="resetall" data-arm="1" data-armtext="Yakin kosongkan?">Mulai dari kosong</button></div></div>':''}
+
+/* ---------- views ---------- */
+function pf(k,l,t,ph){return '<label class="f"><span>'+l+'</span><input class="in" id="p-'+k+'" '+(t==='number'?'type="number" min="0" data-n':'type="text"')+' data-c="profil" data-f="'+k+'" value="'+esc(S.profil[k])+'" placeholder="'+esc(ph||'')+'"></label>'}
+function viewMulai(){
+  var p=S.profil;
+  var meters=[1,2].map(function(s){return '<div class="jpm"><div class="jph"><b>Semester '+s+'</b><span data-calc="semjp:'+s+'"></span></div><div class="meter"><i data-meter="'+s+'"></i></div><p class="hint" data-calc="sisa:'+s+'"></p></div>'}).join('');
+  var rows=TABS.slice(1).map(function(t){var s=status(t.id);return '<button class="prow" data-act="tab" data-v="'+t.id+'"><span class="step" style="'+(s===2?'background:var(--accent);border-color:var(--accent);color:var(--accent-fg)':s===1?'border-color:var(--accent);color:var(--accent)':'')+'">'+t.n+'</span><span class="pl"><b>'+t.l+'</b><small>'+esc(detail(t.id))+'</small></span><span class="pill s'+s+'">'+STL[s]+'</span></button>'}).join('');
+  var json=JSON.stringify(S);
+  return '<div><h1 class="pt">Berkas Ajar Guru</h1><p class="lead">Susun tujuh perangkat ajar dalam satu alur. Data yang diisi pada satu berkas dipakai otomatis di berkas berikutnya, jadi perubahan cukup dilakukan sekali.</p></div>'+
+  '<div class="grid2"><section class="card"><h2>Data induk</h2><div class="fields">'+
+    pf('guru','Nama guru','text','Nama, gelar')+pf('nip','NIP guru','text')+pf('sekolah','Satuan pendidikan','text')+pf('mapel','Mata pelajaran','text')+
+    '<label class="f"><span>Fase</span><select class="in" id="p-fase" data-c="profil" data-f="fase">'+['A','B','C','D','E','F'].map(function(f){return '<option'+(p.fase===f?' selected':'')+'>'+f+'</option>'}).join('')+'</select></label>'+
+    pf('kelas','Kelas','text','mis. VII')+pf('ta','Tahun pelajaran','text','2026/2027')+pf('jp','JP per minggu','number')+pf('menit','Menit per 1 JP','number')+
+    pf('kepsek','Kepala sekolah','text')+pf('nipKs','NIP kepala sekolah','text')+pf('kota','Kota penandatanganan','text')+pf('tgl','Tanggal dokumen','text','mis. 13 Juli 2026')+
+  '</div></section><div class="stack"><section class="card"><h2>Kebutuhan JP</h2>'+meters+'</section><section class="card"><h2>Kemajuan berkas</h2><div>'+rows+'</div></section></div></div>'+
+  '<section class="card backup"><h2>Cadangan data</h2><p class="hint">Data tersimpan di peramban ini. Salin cadangan secara berkala, atau untuk memindahkan data ke perangkat lain: tempel cadangan ke kotak di bawah lalu pulihkan.</p><textarea class="in" id="bk" aria-label="Cadangan data">'+esc(json)+'</textarea><div class="bar"><button class="btn" data-act="backup">Salin cadangan</button><button class="btn" data-act="restore">Pulihkan dari kotak</button></div></section>'}
+
+function chips(b){var h='';for(var i=0;i<b.n;i++){var off=b.off.indexOf(i)>=0;h+='<button class="chip'+(off?' off':'')+'" data-act="wk" data-id="'+b.id+'" data-i="'+i+'" aria-pressed="'+off+'" title="Minggu ke-'+(i+1)+(off?' (tidak efektif)':'')+'">Mg '+(i+1)+'</button>'}return h}
+function monthRow(b){
+  return '<div class="mrow"><div class="mtop"><label class="f mn"><span>Bulan</span><input class="in" data-c="bulan" data-id="'+b.id+'" data-f="nama" value="'+esc(b.nama)+'"></label>'+
+  '<label class="f mw"><span>Jumlah minggu</span><input class="in" type="number" min="1" max="6" inputmode="numeric" data-c="bulan" data-id="'+b.id+'" data-f="n" data-n value="'+b.n+'"></label>'+
+  '<div class="mres"><span data-calc="mgef:'+b.id+'"></span> minggu efektif<br><b data-calc="jpef:'+b.id+'"></b> JP</div>'+
+  '<button class="btn sm ghost" data-act="delbulan" data-id="'+b.id+'" data-arm="1">Hapus</button></div>'+
+  '<div class="chips" data-chips="'+b.id+'">'+chips(b)+'</div>'+
+  '<input class="in" placeholder="Keterangan minggu tidak efektif (libur, asesmen, kegiatan sekolah)" aria-label="Keterangan" data-c="bulan" data-id="'+b.id+'" data-f="ket" value="'+esc(b.ket)+'"></div>'}
+function waktuEdit(){
+  return [1,2].map(function(s){var bs=bulanSem(s);
+    return '<section class="card semb"><div class="semh"><h3>Semester '+s+' ('+(s===1?'Ganjil':'Genap')+')</h3><p class="semsum" data-calc="semsum:'+s+'"></p></div>'+
+    (bs.map(monthRow).join('')||'<p class="empty">Belum ada bulan. Tambahkan bulan pertama.</p>')+
+    '<div><button class="btn sm" data-act="addbulan" data-s="'+s+'">Tambah bulan</button></div></section>'}).join('')+
+  '<p class="hint">Klik nomor minggu untuk menandainya tidak efektif. Minggu efektif dikalikan JP per minggu (diatur di Beranda) menjadi batas JP semester.</p>'}
+function waktuDoc(){
+  var jp=num(S.profil.jp),body='';
+  [1,2].forEach(function(s){var bs=bulanSem(s),w=sum(bs,function(b){return b.n}),o=sum(bs,function(b){return b.off.length});
+    body+='<h3 class="dh">Semester '+s+' ('+(s===1?'Ganjil':'Genap')+')</h3><table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th>No</th><th>Bulan</th><th>Jumlah Minggu</th><th>Minggu Tidak Efektif</th><th>Minggu Efektif</th><th>JP Efektif</th><th>Keterangan</th></tr></thead><tbody>'+
+    bs.map(function(b,i){return '<tr><td class="c">'+(i+1)+'</td><td>'+esc(b.nama)+'</td><td class="c">'+b.n+'</td><td class="c">'+b.off.length+'</td><td class="c">'+mgEf(b)+'</td><td class="c">'+mgEf(b)*jp+'</td><td>'+esc(b.ket)+'</td></tr>'}).join('')+
+    '<tr class="tot"><td colspan="2">Jumlah</td><td class="c">'+w+'</td><td class="c">'+o+'</td><td class="c">'+(w-o)+'</td><td class="c">'+(w-o)*jp+'</td><td></td></tr></tbody></table>'});
+  body+='<h3 class="dh">Rekapitulasi kebutuhan JP</h3><table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th>Semester</th><th>JP Efektif</th><th>JP Materi</th><th>Sisa JP</th></tr></thead><tbody>'+
+    [1,2].map(function(s){return '<tr><td class="c">'+s+'</td><td class="c">'+jpAvail(s)+'</td><td class="c">'+jpTotal(s)+'</td><td class="c">'+(jpAvail(s)-jpTotal(s))+'</td></tr>'}).join('')+'</tbody></table><p class="dnote">JP efektif = minggu efektif × '+jp+' JP per minggu. Sisa JP dipakai untuk asesmen, remedial, dan kegiatan sekolah.</p>';
+  return docFrame('ANALISIS ALOKASI WAKTU',body)}
+function viewWaktu(){
+  var h=head('Analisis Waktu','Hitung minggu dan JP efektif tiap semester. Hasilnya menjadi batas JP untuk Program Tahunan dan Program Semester.','waktu');
+  return h+(S.ui.doc.waktu?waktuDoc():waktuEdit())}
+
+function tpRow(t,n){
+  return '<div class="tprow"><span class="tpn">TP '+n+'</span><textarea class="in" rows="2" aria-label="Tujuan pembelajaran" data-c="tp" data-id="'+t.id+'" data-f="teks">'+esc(t.teks)+'</textarea>'+
+  '<label class="f jpf"><span>JP</span><input class="in" type="number" min="0" inputmode="numeric" data-c="tp" data-id="'+t.id+'" data-f="jp" data-n value="'+esc(t.jp)+'"></label>'+
+  '<div class="tpb"><button class="btn sm ghost" data-act="uptp" data-id="'+t.id+'" aria-label="Naikkan TP">↑</button><button class="btn sm ghost" data-act="downtp" data-id="'+t.id+'" aria-label="Turunkan TP">↓</button><button class="btn sm ghost" data-act="deltp" data-id="'+t.id+'" data-arm="1">Hapus</button></div></div>'}
+function unitBlock(u,idx){
+  return '<div class="unit"><div class="uhead"><label class="f un"><span>Lingkup materi / unit</span><input class="in" data-c="unit" data-id="'+u.id+'" data-f="nama" value="'+esc(u.nama)+'"></label>'+
+  '<label class="f ue"><span>Elemen</span><select class="in" data-c="unit" data-id="'+u.id+'" data-f="cpId"><option value="">—</option>'+S.cp.map(function(c){return '<option value="'+c.id+'"'+(c.id===u.cpId?' selected':'')+'>'+esc(c.elemen)+'</option>'}).join('')+'</select></label>'+
+  '<label class="f us"><span>Semester</span><select class="in" data-c="unit" data-id="'+u.id+'" data-f="sem" data-n data-rr><option value="1"'+(u.sem===1?' selected':'')+'>1</option><option value="2"'+(u.sem===2?' selected':'')+'>2</option></select></label></div>'+
+  unitTps(u).map(function(t){return tpRow(t,no(t.id))}).join('')+
+  '<div class="uact"><button class="btn sm" data-act="addtp" data-id="'+u.id+'">Tambah TP</button><span class="hint" data-calc="unitjp:'+u.id+'"></span><span class="sp"></span>'+
+  '<button class="btn sm ghost" data-act="upunit" data-id="'+u.id+'" aria-label="Naikkan unit">↑</button><button class="btn sm ghost" data-act="downunit" data-id="'+u.id+'" aria-label="Turunkan unit">↓</button><button class="btn sm ghost" data-act="delunit" data-id="'+u.id+'" data-arm="1">Hapus unit</button></div></div>'}
+function cpatpEdit(){
+  var cps='<section class="card"><h2>Capaian Pembelajaran (CP)</h2><p class="hint">Salin CP resmi mata pelajaran dan fase Anda per elemen dari dokumen Capaian Pembelajaran Kemendikdasmen.</p>'+
+   S.cp.map(function(c){return '<div class="cprow"><label class="f"><span>Elemen</span><input class="in" data-c="cp" data-id="'+c.id+'" data-f="elemen" value="'+esc(c.elemen)+'"></label><label class="f"><span>Capaian pembelajaran</span><textarea class="in" rows="3" data-c="cp" data-id="'+c.id+'" data-f="teks">'+esc(c.teks)+'</textarea></label><button class="btn sm ghost" data-act="delcp" data-id="'+c.id+'" data-arm="1">Hapus</button></div>'}).join('')+
+   '<div><button class="btn sm" data-act="addcp">Tambah elemen</button></div></section>';
+  var alur=[1,2].map(function(s){var us=S.unit.filter(function(u){return u.sem===s});
+    return '<section class="card"><div class="semh2"><h3>Alur Tujuan Pembelajaran · Semester '+s+'</h3><span class="semsum" data-calc="semjp:'+s+'"></span></div>'+
+    (us.map(unitBlock).join('')||'<p class="empty">Belum ada unit di semester ini.</p>')+'<div><button class="btn sm" data-act="addunit" data-s="'+s+'">Tambah unit</button></div></section>'}).join('');
+  return cps+alur}
+function spans(rows,f){var out=[],i=0;while(i<rows.length){var j=i;while(j<rows.length&&f(rows[j])===f(rows[i]))j++;out[i]=j-i;for(var k=i+1;k<j;k++)out[k]=0;i=j}return out}
+function cpatpDoc(){
+  var rows=[];[1,2].forEach(function(s){orderedTps(s).forEach(function(t){var u=S.unit.find(function(x){return x.id===t.unitId});rows.push({t:t,u:u,s:s,cp:S.cp.find(function(c){return c.id===u.cpId})})})});
+  if(!rows.length)return docFrame('CAPAIAN PEMBELAJARAN DAN ALUR TUJUAN PEMBELAJARAN','<p class="dnote">Belum ada tujuan pembelajaran.</p>');
+  var spE=spans(rows,function(r){return r.cp?r.cp.id:'-'}),spU=spans(rows,function(r){return r.u.id});
+  var body='<table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th>Elemen</th><th>Capaian Pembelajaran</th><th>Lingkup Materi</th><th>Alur Tujuan Pembelajaran</th><th>JP</th><th>Smt</th></tr></thead><tbody>'+
+   rows.map(function(r,i){return '<tr>'+(spE[i]?'<td rowspan="'+spE[i]+'">'+esc(r.cp?r.cp.elemen:'')+'</td><td rowspan="'+spE[i]+'">'+esc(r.cp?r.cp.teks:'')+'</td>':'')+(spU[i]?'<td rowspan="'+spU[i]+'">'+esc(r.u.nama)+'</td>':'')+'<td>'+no(r.t.id)+'. '+esc(r.t.teks)+'</td><td class="c">'+num(r.t.jp)+'</td><td class="c">'+r.s+'</td></tr>'}).join('')+'</tbody></table>';
+  return docFrame('CAPAIAN PEMBELAJARAN DAN ALUR TUJUAN PEMBELAJARAN',body)}
+function viewCpatp(){
+  var h=head('CP dan ATP','Tuliskan capaian pembelajaran per elemen, lalu susun alur tujuan pembelajaran (ATP) per semester. Semua berkas lain membaca data ini.','cpatp');
+  return h+(S.ui.doc.cpatp?cpatpDoc():cpatpEdit())}
+
+function viewProta(){
+  var h=head('Program Tahunan','Disusun otomatis dari alur tujuan pembelajaran dan analisis waktu. Ubah isinya di CP–ATP.','prota',{noToggle:true});
+  if(!S.tp.length)return h+empty('Belum ada tujuan pembelajaran. Susun alurnya di CP–ATP, lalu Program Tahunan terisi sendiri.','cpatp','Buka CP–ATP');
+  var n=0,body='<table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th>No</th><th>Lingkup Materi</th><th>Tujuan Pembelajaran</th><th>Alokasi Waktu</th></tr></thead><tbody>';
+  [1,2].forEach(function(s){body+='<tr class="grp"><td colspan="4">Semester '+s+' ('+(s===1?'Ganjil':'Genap')+')</td></tr>';
+    S.unit.filter(function(u){return u.sem===s}).forEach(function(u){var tps=unitTps(u);
+      if(!tps.length)body+='<tr><td class="c">–</td><td>'+esc(u.nama)+'</td><td></td><td class="c">0 JP</td></tr>';
+      tps.forEach(function(t,i){n++;body+='<tr><td class="c">'+n+'</td>'+(i===0?'<td rowspan="'+tps.length+'">'+esc(u.nama)+'</td>':'')+'<td>'+esc(t.teks)+'</td><td class="c">'+num(t.jp)+' JP</td></tr>'})});
+    body+='<tr class="tot"><td colspan="3">Jumlah JP semester '+s+'</td><td class="c">'+jpTotal(s)+' JP</td></tr>'});
+  body+='<tr class="tot"><td colspan="3">Jumlah JP satu tahun</td><td class="c">'+(jpTotal(1)+jpTotal(2))+' JP</td></tr></tbody></table><p class="dnote">JP efektif: semester 1 = '+jpAvail(1)+' JP, semester 2 = '+jpAvail(2)+' JP (dari Analisis Waktu). Selisihnya dipakai untuk asesmen, remedial, dan kegiatan sekolah.</p>';
+  var meters=[1,2].map(function(s){return '<div class="jpm" style="flex:1 1 240px"><div class="jph"><b>Semester '+s+'</b><span data-calc="semjp:'+s+'"></span></div><div class="meter"><i data-meter="'+s+'"></i></div><p class="hint" data-calc="sisa:'+s+'"></p></div>'}).join('');
+  return h+'<section class="card" style="flex-direction:row;flex-wrap:wrap;gap:20px">'+meters+'</section>'+docFrame('PROGRAM TAHUNAN',body)}
+
+function viewPromes(){
+  var s=S.ui.sem===2?2:1,bs=bulanSem(s),tps=orderedTps(s);
+  var h=head('Program Semester','Letakkan setiap tujuan pembelajaran pada minggu efektif. Klik sel untuk menandai atau menghapus. Minggu tidak efektif dari Analisis Waktu sudah diarsir.','promes',{noToggle:true,extra:''});
+  var ctl='<div class="bar"><div class="seg" role="group" aria-label="Semester"><button data-act="semsel" data-v="1" aria-pressed="'+(s===1)+'">Semester 1</button><button data-act="semsel" data-v="2" aria-pressed="'+(s===2)+'">Semester 2</button></div><button class="btn" data-act="sebar" data-arm="1" data-armtext="Timpa jadwal?">Sebar otomatis</button><button class="btn ghost" data-act="pkosong" data-arm="1" data-armtext="Kosongkan?">Kosongkan jadwal</button><span class="hint" data-calc="pstat:'+s+'"></span></div>';
+  if(!tps.length)return h+ctl+empty('Belum ada tujuan pembelajaran di semester '+s+'. Susun alurnya di CP–ATP.','cpatp','Buka CP–ATP');
+  var cols=sum(bs,function(b){return b.n});
+  var h1=bs.map(function(b){return '<th colspan="'+b.n+'">'+esc(b.nama)+'</th>'}).join('');
+  var h2=bs.map(function(b){var x='';for(var i=0;i<b.n;i++)x+='<th class="wk">'+(i+1)+'</th>';return x}).join('');
+  var rows='',lastU=null,k=0;
+  tps.forEach(function(t){var u=S.unit.find(function(x){return x.id===t.unitId});
+    if(u.id!==lastU){rows+='<tr class="grp"><td colspan="'+(3+cols)+'">'+esc(u.nama)+'</td></tr>';lastU=u.id}
+    k++;var set=S.promes[t.id]||[];
+    rows+='<tr><td class="c">'+k+'</td><td class="stk">'+esc(t.teks)+'</td><td class="c">'+num(t.jp)+'</td>'+
+    bs.map(function(b){var x='';for(var i=0;i<b.n;i++){var key=b.id+':'+i;
+      if(b.off.indexOf(i)>=0)x+='<td class="pc off">L</td>';
+      else{var on=set.indexOf(key)>=0;x+='<td class="pc'+(on?' on':'')+'"><button class="pcb" data-act="pc" data-id="'+t.id+'" data-k="'+key+'" aria-pressed="'+on+'" aria-label="TP '+no(t.id)+', '+esc(b.nama)+' minggu '+(i+1)+'">'+(on?'✓':'')+'</button></td>'}}return x}).join('')+'</tr>'});
+  var ket=bs.filter(function(b){return b.off.length}).map(function(b){return esc(b.nama)+(b.ket?' ('+esc(b.ket)+')':'')+': minggu '+b.off.map(function(i){return i+1}).join(', ')}).join('; ');
+  var body='<table class="dtbl" border="1" cellpadding="0" cellspacing="0"><thead><tr><th rowspan="2">No</th><th class="stk" rowspan="2">Tujuan Pembelajaran</th><th rowspan="2">JP</th>'+h1+'</tr><tr>'+h2+'</tr></thead><tbody>'+rows+
+   '<tr class="tot"><td colspan="3">Jumlah JP</td><td colspan="'+cols+'">'+jpTotal(s)+' JP</td></tr></tbody></table><p class="dnote">✓ = minggu pembelajaran. L = minggu tidak efektif.'+(ket?' Minggu tidak efektif — '+ket+'.':'')+'</p>';
+  return h+ctl+docFrame('PROGRAM SEMESTER '+s,body,{sub:'Semester '+(s===1?'Ganjil':'Genap')+' Tahun Pelajaran '+dots(S.profil.ta)})}
+
+function kktpCard(t){
+  var u=S.unit.find(function(x){return x.id===t.unitId}),L=lv();
+  var ta=function(f,l,r){return '<label class="f"><span>'+l+'</span><textarea class="in" rows="'+(r||2)+'" data-c="tp" data-id="'+t.id+'" data-f="'+f+'">'+esc(t[f])+'</textarea></label>'};
+  return '<section class="card"><div class="kkh"><b>TP '+no(t.id)+'</b><span class="hint">'+esc(u?u.nama:'')+'</span><span class="sp"></span><button class="btn sm" data-act="genk" data-id="'+t.id+'">Isi kerangka</button></div><p class="tptext">'+esc(t.teks)+'</p>'+
+   ta('ind','Kriteria ketercapaian',2)+'<div class="lv4">'+ta('r1',L[0][0]+' ('+L[0][1]+')')+ta('r2',L[1][0]+' ('+L[1][1]+')')+ta('r3',L[2][0]+' ('+L[2][1]+')')+ta('r4',L[3][0]+' ('+L[3][1]+')')+'</div>'+
+   '<label class="f"><span>Teknik asesmen</span><input class="in" data-c="tp" data-id="'+t.id+'" data-f="teknik" value="'+esc(t.teknik)+'"></label></section>'}
+function kktpEdit(){
+  if(!S.tp.length)return empty('Belum ada tujuan pembelajaran. KKTP disusun untuk setiap TP.','cpatp','Buka CP–ATP');
+  var iv='<section class="card"><h2>Interval nilai</h2><p class="hint">Batas atas tiap tingkat. Tingkat Sangat Baik berakhir di 100.</p><div class="intv">'+
+   [['b1','Perlu Bimbingan'],['b2','Cukup'],['b3','Baik']].map(function(x){return '<label class="f"><span>'+x[1]+' s.d.</span><input class="in" type="number" min="0" max="99" data-c="profil" data-f="'+x[0]+'" data-n value="'+esc(S.profil[x[0]])+'"></label>'}).join('')+
+   '<button class="btn" data-act="genkall">Isi kerangka semua TP yang kosong</button></div></section>';
+  return iv+'<div class="stack">'+orderedTps(1).concat(orderedTps(2)).map(kktpCard).join('')+'</div>'}
+function kktpDoc(){
+  var L=lv();
+  var body='<table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th rowspan="2">No</th><th rowspan="2">Tujuan Pembelajaran</th><th rowspan="2">Kriteria Ketercapaian</th><th colspan="4">Rubrik / Interval Nilai</th><th rowspan="2">Teknik Asesmen</th></tr><tr>'+L.map(function(l){return '<th>'+l[0]+'<br>('+l[1]+')</th>'}).join('')+'</tr></thead><tbody>'+
+   orderedTps(1).concat(orderedTps(2)).map(function(t){return '<tr><td class="c">'+no(t.id)+'</td><td>'+esc(t.teks)+'</td><td>'+esc(t.ind)+'</td><td>'+esc(t.r1)+'</td><td>'+esc(t.r2)+'</td><td>'+esc(t.r3)+'</td><td>'+esc(t.r4)+'</td><td>'+esc(t.teknik)+'</td></tr>'}).join('')+'</tbody></table>';
+  return docFrame('KRITERIA KETERCAPAIAN TUJUAN PEMBELAJARAN (KKTP)',body)}
+function viewKktp(){
+  var h=head('KKTP','Kriteria ketercapaian untuk setiap tujuan pembelajaran, dalam bentuk rubrik empat tingkat. Tujuan pembelajaran diambil dari CP–ATP.','kktp');
+  return h+(S.ui.doc.kktp?kktpDoc():kktpEdit())}
+
+var MODUL_F=[
+ {g:'A. Informasi Umum'},
+ {k:'awal',l:'Kompetensi awal',h:3},{k:'dimensi',l:'Dimensi Profil Lulusan'},{k:'sarana',l:'Sarana dan prasarana',h:2},{k:'target',l:'Target peserta didik',h:2},{k:'model',l:'Model dan pendekatan pembelajaran',h:2},
+ {g:'B. Komponen Inti'},
+ {k:'pemahaman',l:'Pemahaman bermakna',h:3},{k:'pemantik',l:'Pertanyaan pemantik',h:3},{k:'pendahuluan',l:'Kegiatan pendahuluan',h:5},
+ {k:'memahami',l:'Kegiatan inti: memahami',h:4},{k:'mengaplikasi',l:'Kegiatan inti: mengaplikasi',h:4},{k:'merefleksi',l:'Kegiatan inti: merefleksi',h:4},{k:'penutup',l:'Kegiatan penutup',h:4},
+ {g:'C. Asesmen dan Tindak Lanjut'},
+ {k:'diagnostik',l:'Asesmen diagnostik',h:2},{k:'formatif',l:'Asesmen formatif',h:3},{k:'sumatif',l:'Asesmen sumatif',h:3},{k:'remedial',l:'Remedial',h:3},{k:'pengayaan',l:'Pengayaan',h:3},
+ {g:'D. Refleksi dan Pustaka'},
+ {k:'refGuru',l:'Refleksi guru',h:4},{k:'refSiswa',l:'Refleksi peserta didik',h:4},{k:'pustaka',l:'Daftar pustaka',h:2}];
+function picker(cur,act){return '<div class="pick" role="group" aria-label="Pilih unit">'+S.unit.map(function(u,i){return '<button class="chip pk" data-act="'+act+'" data-id="'+u.id+'" aria-pressed="'+(u.id===cur)+'">'+esc(u.nama||'Unit '+(i+1))+' <small>S'+u.sem+'</small></button>'}).join('')+'</div>'}
+function curUnit(key){var u=S.unit.find(function(x){return x.id===S.ui[key]});if(!u){u=S.unit[0];S.ui[key]=u?u.id:null}return u}
+function modulEdit(u){
+  var m=S.modul[u.id]||(S.modul[u.id]={});
+  return '<section class="card">'+MODUL_F.map(function(f){
+    if(f.g)return '<h3 class="grp3">'+f.g+'</h3>';
+    if(f.k==='dimensi'){var cur=m.dimensi||[];return '<div class="f"><span>'+f.l+'</span><div class="chips" data-dim="'+u.id+'">'+DIM.map(function(d){var on=cur.indexOf(d)>=0;return '<button class="chip" data-act="dim" data-id="'+u.id+'" data-v="'+esc(d)+'" aria-pressed="'+on+'">'+esc(d)+'</button>'}).join('')+'</div></div>'}
+    return '<label class="f"><span>'+f.l+'</span><textarea class="in" rows="'+f.h+'" data-c="modul" data-id="'+u.id+'" data-f="'+f.k+'">'+esc(m[f.k])+'</textarea></label>'}).join('')+'</section>'}
+function kktpMini(tps){var L=lv();
+  return '<table class="dtbl" border="1" cellpadding="4" cellspacing="0"><thead><tr><th>Tujuan Pembelajaran</th>'+L.map(function(l){return '<th>'+l[0]+'<br>('+l[1]+')</th>'}).join('')+'</tr></thead><tbody>'+tps.map(function(t){return '<tr><td>'+esc(t.teks)+'</td><td>'+esc(t.r1)+'</td><td>'+esc(t.r2)+'</td><td>'+esc(t.r3)+'</td><td>'+esc(t.r4)+'</td></tr>'}).join('')+'</tbody></table>'}
+function modulDoc(u){
+  var m=S.modul[u.id]||{},tps=unitTps(u),jp=unitJp(u);
+  var sec=function(t,k){return m[k]?'<h4>'+t+'</h4>'+nl(m[k]):''};
+  var dim=(m.dimensi&&m.dimensi.length)?'<h4>Dimensi Profil Lulusan</h4><ul>'+m.dimensi.map(function(d){return '<li>'+esc(d)+'</li>'}).join('')+'</ul>':'';
+  var body='<h3 class="dh">A. Informasi Umum</h3>'+sec('Kompetensi awal','awal')+dim+sec('Sarana dan prasarana','sarana')+sec('Target peserta didik','target')+sec('Model dan pendekatan pembelajaran','model')+
+   '<h3 class="dh">B. Komponen Inti</h3><h4>Tujuan pembelajaran</h4>'+tps.map(function(t,i){return '<p>'+(i+1)+'. '+esc(t.teks)+'</p>'}).join('')+
+   sec('Pemahaman bermakna','pemahaman')+sec('Pertanyaan pemantik','pemantik')+'<h4>Kegiatan pembelajaran</h4>'+
+   (m.pendahuluan?'<p><i>Pendahuluan</i></p>'+nl(m.pendahuluan):'')+(m.memahami?'<p><i>Inti — memahami</i></p>'+nl(m.memahami):'')+(m.mengaplikasi?'<p><i>Inti — mengaplikasi</i></p>'+nl(m.mengaplikasi):'')+(m.merefleksi?'<p><i>Inti — merefleksi</i></p>'+nl(m.merefleksi):'')+(m.penutup?'<p><i>Penutup</i></p>'+nl(m.penutup):'')+
+   '<h3 class="dh">C. Asesmen dan Tindak Lanjut</h3>'+sec('Asesmen diagnostik','diagnostik')+sec('Asesmen formatif','formatif')+sec('Asesmen sumatif','sumatif')+'<h4>Kriteria ketercapaian (KKTP)</h4>'+kktpMini(tps)+sec('Remedial','remedial')+sec('Pengayaan','pengayaan')+
+   '<h3 class="dh">D. Refleksi dan Lampiran</h3>'+sec('Refleksi guru','refGuru')+sec('Refleksi peserta didik','refSiswa')+sec('Daftar pustaka','pustaka')+
+   '<h4>Lampiran</h4><p>LKPD: '+esc((S.lkpd[u.id]&&S.lkpd[u.id].judul)||'LKPD '+u.nama)+'</p>';
+  return docFrame('MODUL AJAR',body,{sub:esc(u.nama)+' · Semester '+u.sem,extra:['Alokasi Waktu',jp+' JP × '+num(S.profil.menit)+' menit']})}
+function unitTabView(key,act,title,lead,tab,editFn,docFn,genAct,genLabel){
+  var h=head(title,lead,tab);
+  if(!S.unit.length)return h+empty('Belum ada unit. Susun alur tujuan pembelajaran di CP–ATP terlebih dahulu.','cpatp','Buka CP–ATP');
+  var u=curUnit(key),d=S.ui.doc[tab];
+  var gen=d?'':'<div class="bar"><button class="btn pri" data-act="'+genAct+'">'+genLabel+'</button><span class="hint">Hanya mengisi bagian yang masih kosong.</span></div>';
+  return h+picker(u.id,act)+gen+(d?docFn(u):editFn(u))}
+function viewModul(){return unitTabView('unit','unitsel','Modul Ajar','Satu modul untuk setiap unit. Identitas, tujuan pembelajaran, alokasi waktu, dan rubrik KKTP diambil otomatis; bagian lain dapat dibuat dari kerangka lalu disesuaikan.','modul',modulEdit,modulDoc,'genm','Isi kerangka modul')}
+
+var LKPD_F=[{k:'judul',l:'Judul LKPD',t:'in'},{k:'petunjuk',l:'Petunjuk belajar',h:5},{k:'tujuan',l:'Tujuan pembelajaran',h:3},{k:'alat',l:'Alat dan bahan',h:2},{k:'kegiatan',l:'Langkah kegiatan',h:4},{k:'tugas',l:'Tugas (satu baris untuk satu tugas)',h:6},{k:'baris',l:'Baris jawaban per tugas',t:'num'},{k:'kesimpulan',l:'Pertanyaan kesimpulan',h:2},{k:'refleksi',l:'Pengantar refleksi',h:2}];
+function lkpdEdit(u){
+  var l=S.lkpd[u.id]||(S.lkpd[u.id]={});
+  return '<section class="card">'+LKPD_F.map(function(f){
+    if(f.t==='in')return '<label class="f"><span>'+f.l+'</span><input class="in" data-c="lkpd" data-id="'+u.id+'" data-f="'+f.k+'" value="'+esc(l[f.k])+'"></label>';
+    if(f.t==='num')return '<label class="f" style="max-width:160px"><span>'+f.l+'</span><input class="in" type="number" min="1" max="12" data-c="lkpd" data-id="'+u.id+'" data-f="'+f.k+'" data-n value="'+esc(l[f.k]||3)+'"></label>';
+    return '<label class="f"><span>'+f.l+'</span><textarea class="in" rows="'+f.h+'" data-c="lkpd" data-id="'+u.id+'" data-f="'+f.k+'">'+esc(l[f.k])+'</textarea></label>'}).join('')+'</section>'}
+function ans(n){return '<table class="ans" width="100%" cellspacing="0" cellpadding="0">'+'<tr><td style="border-bottom:1px solid #555;height:24px">&nbsp;</td></tr>'.repeat(Math.max(1,n))+'</table>'}
+function lkpdDoc(u){
+  var l=S.lkpd[u.id]||{},tps=unitTps(u),L=lv(),n=Math.max(1,num(l.baris)||3);
+  var lines=function(s){return String(s||'').split('\n').map(function(x){return x.trim()}).filter(Boolean)};
+  var body='<table class="dtbl" border="1" cellpadding="6" cellspacing="0"><tr><td style="width:28%">Nama kelompok</td><td>&nbsp;</td></tr><tr><td>Anggota</td><td>&nbsp;<br>&nbsp;<br>&nbsp;</td></tr><tr><td>Kelas / Tanggal</td><td>&nbsp;</td></tr></table>'+
+   (l.tujuan?'<h4>Tujuan pembelajaran</h4>'+nl(l.tujuan):'')+(l.petunjuk?'<h4>Petunjuk belajar</h4>'+nl(l.petunjuk):'')+(l.alat?'<h4>Alat dan bahan</h4>'+nl(l.alat):'')+(l.kegiatan?'<h4>Langkah kegiatan</h4>'+nl(l.kegiatan):'')+
+   '<h4>Tugas</h4>'+(lines(l.tugas).map(function(t){return '<p><b>'+esc(t)+'</b></p>'+ans(n)}).join('')||'<p>Belum ada tugas.</p>')+
+   '<h4>Kesimpulan</h4><p>'+esc(l.kesimpulan||'')+'</p>'+ans(Math.min(n,3))+
+   '<h4>Refleksi</h4><p>'+esc(l.refleksi||'')+'</p><p>Aku sudah paham <span class="lvl-box"></span> &nbsp; Aku masih perlu latihan <span class="lvl-box"></span> &nbsp; Aku belum paham <span class="lvl-box"></span></p>'+
+   '<h4>Penilaian guru</h4><p>'+L.map(function(x){return x[0]+' ('+x[1]+') <span class="lvl-box"></span>'}).join(' &nbsp; ')+'</p>';
+  return docFrame('LEMBAR KERJA PESERTA DIDIK (LKPD)',body,{sub:esc(l.judul||('LKPD '+u.nama)),extra:['Unit',esc(u.nama)]})}
+function viewLkpd(){return unitTabView('unitL','unitselL','LKPD','Lembar kerja untuk setiap unit. Tujuan dan tugas diturunkan dari tujuan pembelajaran unit, lalu dapat Anda tulis ulang sesuai kegiatan kelas.','lkpd',lkpdEdit,lkpdDoc,'genl','Isi kerangka LKPD')}
+
+/* ---------- render / state ---------- */
+function render(){
+  mapNo();
+  var v={mulai:viewMulai,waktu:viewWaktu,cpatp:viewCpatp,prota:viewProta,promes:viewPromes,kktp:viewKktp,modul:viewModul,lkpd:viewLkpd}[S.ui.tab]||viewMulai;
+  $('#main').innerHTML=notice()+v();
+  updateDerived()}
+var saveT=null;
+function persist(){clearTimeout(saveT);saveT=setTimeout(function(){var el=$('#saved');try{localStorage.setItem(KEY,JSON.stringify(S));el.textContent='Tersimpan di peramban ini'}catch(e){el.textContent='Penyimpanan peramban tidak tersedia. Salin cadangan dari Beranda.'}},250)}
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);if(o&&o.profil&&o.bulan&&o.tp&&o.unit)return o}}catch(e){}return null}
+var toastT=null;
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},3200)}
+function obj(c,id){if(c==='profil')return S.profil;if(c==='modul'||c==='lkpd')return S[c][id]||(S[c][id]={});return S[c].find(function(x){return x.id===id})}
+function setField(el,final){
+  var c=el.dataset.c,id=el.dataset.id,f=el.dataset.f,v=el.value;
+  if(el.dataset.n!==undefined)v=v===''?0:Number(v);
+  var o=obj(c,id);if(!o)return;
+  o[f]=v;
+  if(c==='bulan'&&f==='n'){var n=Math.max(1,Math.min(6,Math.round(num(v))||1));o.n=n;o.off=o.off.filter(function(i){return i<n});
+    var ch=document.querySelector('[data-chips="'+id+'"]');if(ch)ch.innerHTML=chips(o);if(final)el.value=n}
+  persist();updateDerived()}
+function move(arr,id,dir,pred){var idx=[];arr.forEach(function(x,i){if(pred(x))idx.push(i)});var p=-1;idx.forEach(function(i,k){if(arr[i].id===id)p=k});var q=p+dir;if(p<0||q<0||q>=idx.length)return;var a=idx[p],b=idx[q],t=arr[a];arr[a]=arr[b];arr[b]=t}
+function dropUnit(id){var ids=S.tp.filter(function(t){return t.unitId===id}).map(function(t){return t.id});ids.forEach(function(x){delete S.promes[x]});S.tp=S.tp.filter(function(t){return t.unitId!==id});S.unit=S.unit.filter(function(u){return u.id!==id});delete S.modul[id];delete S.lkpd[id]}
+function newTp(unitId){return {id:uid(),unitId:unitId,teks:'Peserta didik dapat ',jp:4,ind:'',r1:'',r2:'',r3:'',r4:'',teknik:''}}
+
+async function copyDoc(){
+  var el=document.getElementById('doc');if(!el)return;
+  var c=el.cloneNode(true);
+  c.querySelectorAll('button').forEach(function(b){b.replaceWith(document.createTextNode(b.textContent.trim()))});
+  c.querySelectorAll('.pc.on').forEach(function(td){td.setAttribute('style','background:#0E6B5A;color:#ffffff;text-align:center')});
+  c.querySelectorAll('.pc.off').forEach(function(td){td.setAttribute('style','background:#d4d4d4;text-align:center')});
+  c.querySelectorAll('.dtbl').forEach(function(t){t.setAttribute('style','border-collapse:collapse;width:100%')});
+  var html='<div style="font-family:Times New Roman,serif;font-size:12pt">'+c.innerHTML+'</div>',text=el.innerText;
+  try{if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){
+    await navigator.clipboard.write([new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([text],{type:'text/plain'})})]);
+    toast('Dokumen disalin. Tempel di Word atau Google Docs.');return}}catch(e){}
+  try{await navigator.clipboard.writeText(text);toast('Teks dokumen disalin tanpa format tabel.');return}catch(e){}
+  var r=document.createRange();r.selectNodeContents(el);var sel=window.getSelection();sel.removeAllRanges();sel.addRange(r);
+  toast('Dokumen sudah terpilih. Tekan Ctrl+C untuk menyalin.')}
+async function copyText(t,msg){
+  try{await navigator.clipboard.writeText(t);toast(msg);return}catch(e){}
+  var ta=$('#bk');if(ta){ta.focus();ta.select();toast('Teks terpilih. Tekan Ctrl+C untuk menyalin.')}}
+
+document.addEventListener('input',function(e){var el=e.target;if(el.dataset&&el.dataset.f)setField(el,false)});
+document.addEventListener('change',function(e){var el=e.target;if(!el.dataset||!el.dataset.f)return;setField(el,true);if(el.dataset.rr!==undefined)render()});
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b||b.disabled)return;
+  if(b.dataset.arm&&!b.classList.contains('armed')){b.classList.add('armed');b.dataset.t=b.textContent;b.textContent=b.dataset.armtext||'Yakin?';
+    setTimeout(function(){if(b.isConnected&&b.classList.contains('armed')){b.classList.remove('armed');b.textContent=b.dataset.t}},3000);return}
+  var a=b.dataset.act,id=b.dataset.id,v=b.dataset.v,done=function(r){persist();if(r!==false)render()};
+  switch(a){
+    case 'tab':S.ui.tab=v;done();window.scrollTo({top:0});var cur=$('.navbtn[aria-current="page"]');if(cur&&cur.scrollIntoView)cur.scrollIntoView({inline:'center',block:'nearest'});break;
+    case 'view':S.ui.doc[S.ui.tab]=v==='doc';done();break;
+    case 'semsel':S.ui.sem=+v;done();break;
+    case 'unitsel':S.ui.unit=id;done();break;
+    case 'unitselL':S.ui.unitL=id;done();break;
+    case 'addcp':S.cp.push({id:uid(),elemen:'',teks:''});done();break;
+    case 'delcp':S.cp=S.cp.filter(function(c){return c.id!==id});S.unit.forEach(function(u){if(u.cpId===id)u.cpId=''});done();break;
+    case 'addunit':{var u={id:uid(),sem:+b.dataset.s,nama:'',cpId:S.cp[0]?S.cp[0].id:''};S.unit.push(u);S.tp.push(newTp(u.id));done();break}
+    case 'delunit':dropUnit(id);done();break;
+    case 'upunit':case 'downunit':{var uu=S.unit.find(function(x){return x.id===id});if(uu)move(S.unit,id,a==='upunit'?-1:1,function(x){return x.sem===uu.sem});done();break}
+    case 'addtp':S.tp.push(newTp(id));done();break;
+    case 'deltp':S.tp=S.tp.filter(function(t){return t.id!==id});delete S.promes[id];done();break;
+    case 'uptp':case 'downtp':{var tt=S.tp.find(function(x){return x.id===id});if(tt)move(S.tp,id,a==='uptp'?-1:1,function(x){return x.unitId===tt.unitId});done();break}
+    case 'addbulan':S.bulan.push({id:uid(),sem:+b.dataset.s,nama:'',n:4,off:[],ket:''});done();break;
+    case 'delbulan':S.bulan=S.bulan.filter(function(x){return x.id!==id});done();break;
+    case 'wk':{var bb=bul(id),i=+b.dataset.i,p=bb.off.indexOf(i);if(p>=0)bb.off.splice(p,1);else bb.off.push(i);
+      var ch=document.querySelector('[data-chips="'+id+'"]');if(ch)ch.innerHTML=chips(bb);persist();updateDerived();break}
+    case 'pc':{var set=S.promes[id]||(S.promes[id]=[]),k=b.dataset.k,pos=set.indexOf(k);if(pos>=0)set.splice(pos,1);else set.push(k);
+      var on=pos<0;b.setAttribute('aria-pressed',on);b.textContent=on?'✓':'';b.parentElement.classList.toggle('on',on);persist();updateDerived();break}
+    case 'sebar':{var over=autoSebar(S.ui.sem===2?2:1);done();toast(over?'Sebagian TP melebihi minggu efektif. Kurangi JP atau tambah minggu.':'Jadwal tersebar ke minggu efektif sesuai JP.');break}
+    case 'pkosong':orderedTps(S.ui.sem===2?2:1).forEach(function(t){S.promes[t.id]=[]});done();break;
+    case 'genk':{var t1=S.tp.find(function(x){return x.id===id});if(t1)fillEmpty(t1,genKktp(t1));done();break}
+    case 'genkall':S.tp.forEach(function(t){fillEmpty(t,genKktp(t))});done();toast('Kerangka KKTP terisi untuk bagian yang kosong.');break;
+    case 'genm':{var um=curUnit('unit');S.modul[um.id]=fillEmpty(S.modul[um.id]||{},genModul(um));done();toast('Kerangka modul terisi.');break}
+    case 'genl':{var ul=curUnit('unitL');S.lkpd[ul.id]=fillEmpty(S.lkpd[ul.id]||{},genLkpd(ul));done();toast('Kerangka LKPD terisi.');break}
+    case 'dim':{var m=obj('modul',id),arr=m.dimensi||(m.dimensi=[]),q=arr.indexOf(v);if(q>=0)arr.splice(q,1);else arr.push(v);b.setAttribute('aria-pressed',q<0);persist();updateDerived();break}
+    case 'copy':copyDoc();break;
+    case 'keepsample':S.sample=false;done();break;
+    case 'resetall':S=blank();done();toast('Data dikosongkan.');break;
+    case 'backup':copyText(JSON.stringify(S),'Cadangan disalin. Simpan di tempat aman.');break;
+    case 'restore':{try{var o=JSON.parse($('#bk').value);if(!(o&&o.profil&&o.bulan&&o.tp&&o.unit))throw 0;o.ui=o.ui||{tab:'mulai',sem:1,doc:{}};S=o;done();toast('Data dipulihkan dari cadangan.')}catch(err){toast('Cadangan tidak valid. Tempel isi cadangan yang utuh.')}break}
+  }
+});
+
+S=load();
+if(!S){seed();persist()}
+render();
+setTimeout(function(){var el=$('#saved');if(el&&!el.textContent)el.textContent='Perubahan disimpan otomatis di peramban ini'},0);
+})();
+</script>
+
+</body></html>
